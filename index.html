@@ -106,21 +106,21 @@
       background: none;
     }
 
-    /* Ambient Cursor Glow Follower */
+    /* Ambient Cursor Glow Follower - Instant & Zero Lag */
     .ambient-glow {
       position: fixed;
       top: 0;
       left: 0;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(37, 99, 235, 0.04) 45%, transparent 70%);
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.09) 0%, rgba(37, 99, 235, 0.03) 40%, transparent 65%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.85;
+      opacity: 0;
       will-change: transform;
       transform: translate3d(-300px, -300px, 0);
-      transition: opacity 0.4s ease;
+      transition: opacity 0.25s ease;
     }
 
     /* =============================================================
@@ -1754,46 +1754,48 @@
       </div>
 
       <div class="projects-grid">
-        <!-- Project 1 -->
+        <!-- Project 1: Web Design & Prototyping -->
         <div class="project-card slide-in-up stagger-1">
-          <span class="project-badge">Automation & Engineering</span>
-          <h3>AI Job Search & ATS Engine</h3>
-          <p>An automated local job search framework. Evaluates postings against personal qualifications, automatically customizes LaTeX resumes, formats targeted cover letters, and tracks applications across European tech portals.</p>
+          <span class="project-badge">Web Design & Prototyping</span>
+          <h3>Creative Web Studio & Landing Pages</h3>
+          <p>Modern, responsive websites and landing page prototypes created by combining semantic HTML5, modern CSS layouts (Grid, Flexbox), and AI-assisted workflows for rapid UI iteration and delivery.</p>
           <div class="tag-cluster" style="margin-bottom: 1.5rem;">
-            <span class="tag">Python</span>
-            <span class="tag">LuaLaTeX</span>
-            <span class="tag">Shell CLI</span>
-            <span class="tag">ATS Parsing</span>
+            <span class="tag">Semantic HTML5</span>
+            <span class="tag">Modern CSS3</span>
+            <span class="tag">AI Workflows</span>
+            <span class="tag">Responsive UI</span>
+            <span class="tag">Clean Code</span>
           </div>
           <div class="project-footer">
             <div class="project-status">
               <span class="status-dot-active"></span>
-              <span>Active Framework</span>
+              <span>Active Works</span>
             </div>
-            <a href="https://github.com/MadsLorentzen/ai-job-search" target="_blank" rel="noopener" class="project-link">
-              Framework Specs ↗
+            <a href="https://github.com/omer-memis/" target="_blank" rel="noopener" class="project-link">
+              View GitHub ↗
             </a>
           </div>
         </div>
 
-        <!-- Project 2 -->
+        <!-- Project 2: Visual Arts & Photoshop -->
         <div class="project-card slide-in-up stagger-2">
-          <span class="project-badge">Web Architecture & UI</span>
-          <h3>Cyber Minimalist Single-File Portfolio</h3>
-          <p>Zero-dependency, high-performance portfolio website engineered with floating capsule navigation, scroll-driven sliding reveals, hardware-accelerated shaders, and full WCAG accessibility compliance.</p>
+          <span class="project-badge">Visual Design & Branding</span>
+          <h3>Adobe Photoshop Visual Arts & Assets</h3>
+          <p>Custom digital visual compositions, advertising banners, social media marketing creatives, and high-fidelity UI mockups created using Adobe Photoshop with precise color grading and layer discipline.</p>
           <div class="tag-cluster" style="margin-bottom: 1.5rem;">
-            <span class="tag">Vanilla HTML5/CSS3</span>
-            <span class="tag">Scroll Timelines</span>
-            <span class="tag">Zero Build Step</span>
-            <span class="tag">100 Lighthouse</span>
+            <span class="tag">Adobe Photoshop</span>
+            <span class="tag">Banner Design</span>
+            <span class="tag">Social Creatives</span>
+            <span class="tag">UI Mockups</span>
+            <span class="tag">Visual Arts</span>
           </div>
           <div class="project-footer">
             <div class="project-status">
               <span class="status-dot-active"></span>
-              <span>Live Site</span>
+              <span>Design Portfolio</span>
             </div>
-            <a href="#home" class="project-link">
-              Back to Top ↑
+            <a href="#contact" class="project-link">
+              Inquire Works ↗
             </a>
           </div>
         </div>
@@ -1814,8 +1816,8 @@
               <span class="status-dot-active"></span>
               <span>Academic Milestone</span>
             </div>
-            <a href="#contact" class="project-link">
-              Inquire Project ↗
+            <a href="https://github.com/omer-memis/" target="_blank" rel="noopener" class="project-link">
+              GitHub Repos ↗
             </a>
           </div>
         </div>
@@ -1916,26 +1918,21 @@
 
   <!-- Interactive Script -->
   <script>
-    // 1. Ambient Glow Follower with RAF Throttling
+    // 1. Instant Zero-Latency Ambient Glow Follower (Glued to pointer)
     const ambientGlow = document.getElementById('ambientGlow');
     if (window.matchMedia('(pointer: fine)').matches && ambientGlow) {
-      let mouseX = -500, mouseY = -500;
-      let currentX = -500, currentY = -500;
-      let isTicking = false;
-
       window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        if (!isTicking) {
-          window.requestAnimationFrame(() => {
-            currentX += (mouseX - currentX) * 0.16;
-            currentY += (mouseY - currentY) * 0.16;
-            ambientGlow.style.transform = `translate3d(${currentX - 275}px, ${currentY - 275}px, 0)`;
-            isTicking = false;
-          });
-          isTicking = true;
-        }
+        ambientGlow.style.transform = `translate3d(${e.clientX - 240}px, ${e.clientY - 240}px, 0)`;
+        ambientGlow.style.opacity = '1';
       }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        ambientGlow.style.opacity = '0';
+      });
+
+      document.addEventListener('mouseenter', () => {
+        ambientGlow.style.opacity = '1';
+      });
     } else if (ambientGlow) {
       ambientGlow.style.display = 'none';
     }
